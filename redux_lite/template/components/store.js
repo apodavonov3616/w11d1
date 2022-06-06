@@ -9,9 +9,16 @@ export default class Store {
         return Object.assign({}, this.state);
     }
 
-    combineReducers() {
-
+    combineReducers(reducers) {
+        return (initialState = {}, action) => {
+            
+            let obj = {}
+            Object.keys(reducers).forEach(key => {
+                  obj[key] = reducers[key](initialState[key], action)
+            });
+            return obj;
+      }
     }
-
-    
 }
+
+
