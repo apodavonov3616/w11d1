@@ -1,17 +1,5 @@
+import {Store, combineReducers} from './components/store';
 
-const combineReducers = (reducers) => {
-      // go through each reducer + value 
-      // assign it to a new object 
-      
-      return (initialState = {}, action) => {
-            
-            let obj = {}
-            Object.keys(reducers).forEach(key => {
-                  obj[key] = reducers[key](initialState[key], action)
-            });
-            return obj;
-      }
-}
 
 let init_state = {
     name: 'Abby',
@@ -67,10 +55,5 @@ let second_action = {
 }
 
 let myRootReducer = combineReducers(reducers);
-
-console.log(init_state)
-let newState = myRootReducer(init_state, new_action)
-
-console.log(newState)
-let newNewState = myRootReducer(newState, second_action);
-console.log(newNewState)
+let myStore = new Store(myRootReducer);
+console.log(myStore.getState())
